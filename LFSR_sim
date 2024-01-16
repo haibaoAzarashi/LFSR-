@@ -1,0 +1,78 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "D:\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\iverilog\lib\ivl\va_math.vpi";
+S_000002a306505c00 .scope module, "TB" "TB" 2 8;
+ .timescale 0 0;
+v000002a306505fc0_0 .var "clk", 0 0;
+v000002a3064bbcb0_0 .net "op", 3 0, v000002a3064b90f0_0;  1 drivers
+v000002a3064bbd50_0 .var "rst", 0 0;
+S_000002a306505d90 .scope module, "lfsr1" "LFSR" 2 12, 2 1 0, S_000002a306505c00;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /INPUT 1 "rst";
+    .port_info 2 /OUTPUT 4 "op";
+v000002a3064d2d60_0 .net "clk", 0 0, v000002a306505fc0_0;  1 drivers
+v000002a3064b90f0_0 .var "op", 3 0;
+v000002a306505f20_0 .net "rst", 0 0, v000002a3064bbd50_0;  1 drivers
+E_000002a3064bc9f0 .event posedge, v000002a3064d2d60_0;
+    .scope S_000002a306505d90;
+T_0 ;
+    %wait E_000002a3064bc9f0;
+    %load/vec4 v000002a306505f20_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 15, 0, 4;
+    %assign/vec4 v000002a3064b90f0_0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v000002a3064b90f0_0;
+    %parti/s 3, 0, 2;
+    %load/vec4 v000002a3064b90f0_0;
+    %parti/s 1, 3, 3;
+    %load/vec4 v000002a3064b90f0_0;
+    %parti/s 1, 2, 3;
+    %xor;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v000002a3064b90f0_0, 0, 4;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_000002a306505c00;
+T_1 ;
+    %vpi_call 2 15 "$monitor", "op=%b", v000002a3064bbcb0_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000002a306505fc0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000002a3064bbd50_0, 0, 1;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000002a3064bbd50_0, 0, 1;
+    %delay 50, 0;
+    %vpi_call 2 18 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_000002a306505c00;
+T_2 ;
+    %delay 2, 0;
+    %load/vec4 v000002a306505fc0_0;
+    %inv;
+    %store/vec4 v000002a306505fc0_0, 0, 1;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_000002a306505c00;
+T_3 ;
+    %vpi_call 2 24 "$dumpfile", "dump.vcd" {0 0 0};
+    %vpi_call 2 24 "$dumpvars" {0 0 0};
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "LFSR.v";
